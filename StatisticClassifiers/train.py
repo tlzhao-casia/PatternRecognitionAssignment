@@ -25,7 +25,7 @@ parser.add_argument('--gamma', type = float, default = 0.1,
                     help = 'gamma parameter for rda')
 parser.add_argument('--beta', type = float, default = 0.1,
                     help = 'beta parameter for rda')
-parser.add_argument('-k', type = int, default = 0.5,
+parser.add_argument('-k', type = int, default = 1,
                     help = 'number of engivalues to reserve')
 # gpu-ids
 parser.add_argument('--gpu-id', type = int, default = 0,
