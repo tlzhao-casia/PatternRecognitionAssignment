@@ -27,6 +27,8 @@ parser.add_argument('--beta', type = float, default = 0.1,
                     help = 'beta parameter for rda')
 parser.add_argument('-k', type = int, default = 1,
                     help = 'number of engivalues to reserve')
+parser.add_argument('--h', type = float, default = 1,
+                    help = 'the width of window')
 # gpu-ids
 parser.add_argument('--gpu-id', type = int, default = 0,
                     help = 'Device(s) to run on')
@@ -60,6 +62,8 @@ def main():
     cls = gaussian.RDA(train_x, train_y, args.gamma, args.beta)
   elif args.cls.lower() == 'mqdf':
     cls = gaussian.MQDF(train_x, train_y, args.k)
+  elif args.cls.lower() == 'parsen':
+    cls = gaussian.Parsen(train_x, train_y, args.h)
 
   test_acc = test(cls, val_x, val_y)
 

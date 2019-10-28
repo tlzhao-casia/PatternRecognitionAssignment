@@ -1,3 +1,5 @@
+import math
+
 import torch
 
 from .utils import classes
@@ -18,6 +20,23 @@ class Gaussian(object):
       y.append(self._discriminant_func(x, c).view(1, -1))
     y = torch.cat(y, dim = 0)
     return y.argmax(dim = 0)
+    
+
+class Parsen(Gaussian):
+  def __init__(self, x, y, h):
+    super(Parsen, self).__init__(x, y)
+    self.h = h
+
+  def _func(self, x):
+    return (-(x * x).sum(dim = 0)).exp()
+
+  def _discriminant_func(self, x, y):
+    xi = self.x[:,self.y == y]
+    ret = torch.zeros(x.size(1), device = xi.device)
+    for i in range(xi.size(1)):
+      _x = (x - xi[:,i].view(-1,1)) / self.h
+      ret += self._func(_x)
+    return ret * xi.size(1) / self.y.numel()
     
      
 
