@@ -1,6 +1,6 @@
 import numpy as np
 
-def iris(data):
+def iris(data = '../dataset/iris/iris.data'):
   f = open(data)
   lines = f.readlines()
   f.close()
