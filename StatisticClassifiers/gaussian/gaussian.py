@@ -87,14 +87,14 @@ class RDA(QDF):
       xi = self.x[:,self.y == c]
       meani = xi.mean(dim = 1)
       _xi = xi - meani.view(-1,1)
-      sigmai = _xi.matmul(_xi.transpose(1,0))
+      sigmai = _xi.matmul(_xi.transpose(1,0)) / _xi.size(1)
       pi = xi.size(1) / self.x.size(1)
       sigma += pi * sigmai
       self.sigma.append(sigmai)
       self.mean.append(meani)
 
     for i, s in enumerate(self.sigma):
-      _s = (1 - self.gamma) * ((1 - self.beta) * s + self.beta * sigma) + self.gamma * s.trace()
+      _s = (1 - self.gamma) * ((1 - self.beta) * s + self.beta * sigma) + self.gamma * s.trace() / dim
       self.sigma[i] = inverse(_s)
       self.log_sigma.append(_s.det().log())
 
@@ -113,7 +113,7 @@ class MQDF(QDF):
       xi = self.x[:,self.y == c]
       meani = xi.mean(dim = 1)
       _xi = xi - meani.view(-1, 1)
-      sigmai = _xi.matmul(_xi.transpose(1, 0))
+      sigmai = _xi.matmul(_xi.transpose(1, 0)) / _xi.size(1)
       s, v, d = sigmai.svd()
       v[self.k:] = v[self.k-1]
       sigmai = s.matmul(torch.diag(v)).matmul(d.transpose(1,0))

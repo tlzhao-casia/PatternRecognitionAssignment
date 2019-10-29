@@ -35,6 +35,8 @@ parser.add_argument('--gpu-id', type = int, default = 0,
 
 args = parser.parse_args()
 
+np.random.seed(0)
+
 def main():
   # prepare dataset
   x,y = dataset.__dict__[args.data]()
@@ -42,11 +44,12 @@ def main():
   num_train = round(num_samples * (1 - args.val_rate))
   num_val = num_samples - num_train
   assert(num_val > 0 and num_train > 0)
-  indices = np.random.shuffle(list(range(num_samples)))
-  train_x = x[:,:num_train]
-  train_y = y[:num_train]
-  val_x = x[:,num_train:]
-  val_y = y[num_train:]
+  indices = list(range(num_samples))
+  np.random.shuffle(indices)
+  train_x = x[:,indices[:num_train]]
+  train_y = y[indices[:num_train]]
+  val_x = x[:,indices[num_train:]]
+  val_y = y[indices[num_train:]]
 
   train_x = torch.from_numpy(train_x).float()#.to(args.gpu_id)
   train_y = torch.from_numpy(train_y).int()#.to(args.gpu_id)
