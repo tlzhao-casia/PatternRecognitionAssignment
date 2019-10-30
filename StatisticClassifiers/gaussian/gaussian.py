@@ -28,7 +28,7 @@ class Parsen(Gaussian):
     self.h = h
 
   def _func(self, x):
-    return (-(x * x).sum(dim = 0)).exp()
+    return (-(x * x).sum(dim = 0) / 2).exp()
 
   def _discriminant_func(self, x, y):
     xi = self.x[:,self.y == y]
