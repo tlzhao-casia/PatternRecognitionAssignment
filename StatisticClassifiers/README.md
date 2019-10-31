@@ -7,7 +7,7 @@
 
 ### Description
 
-This is the first assignment of my class: Pattern Recognition and Machine Learning. 
+This is the codes of the first assignment of my class: Pattern Recognition and Machine Learning. 
 I implement five classifiers (QDF, LDF, MQDF, RDA and Parzen window), and evaluate 
 these five classifiers on 3 datasets (iris, wine and wdbc). Considering that for 
 wine and wdbc, the dimension of features is high, while data samples are limited, which
