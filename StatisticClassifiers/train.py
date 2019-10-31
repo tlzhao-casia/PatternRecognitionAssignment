@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data', '-d', type = str, default = 'iris',
                      choices = dataset_names,
                      help = 'The dataset for training.')
-parser.add_argument('--val-rate', type = float, default = 0.1,
+parser.add_argument('--val-rate', type = float, default = 0.2,
                     help = 'The sample rate for validition data.')
 
 # args for classifiers
@@ -65,8 +65,8 @@ def main():
     cls = gaussian.RDA(train_x, train_y, args.gamma, args.beta)
   elif args.cls.lower() == 'mqdf':
     cls = gaussian.MQDF(train_x, train_y, args.k)
-  elif args.cls.lower() == 'parsen':
-    cls = gaussian.Parsen(train_x, train_y, args.h)
+  elif args.cls.lower() == 'parzen':
+    cls = gaussian.Parzen(train_x, train_y, args.h)
 
   test_acc = test(cls, val_x, val_y)
 
@@ -75,7 +75,7 @@ def main():
 def test(cls, val_x, val_y):
   y = cls(val_x)
   numel = val_y.numel()
-  num_acc = (y == val_y.long()).sum().item()
+  num_acc = (y == val_y.long()).sum().item() 
   return num_acc / numel
 
 if __name__ == '__main__':

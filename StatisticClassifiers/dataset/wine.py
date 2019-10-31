@@ -15,4 +15,17 @@ def wine():
   y = np.array(y).astype('int')
   y -= 1
 
-  return x.transpose(1, 0), y
+  x = x.transpose(1, 0)[2:]
+
+  mean = x.mean(axis = 1)
+  x = x - mean.reshape(-1, 1)
+  var = np.sqrt((x * x).sum(axis = 1) / x.shape[1])
+  x = x / var.reshape(-1, 1)
+
+  sigma =  x.dot(x.T) / x.shape[1]
+
+  s, v, d = np.linalg.svd(sigma)
+
+  x = s[0:4, :].dot(x)
+
+  return x, y

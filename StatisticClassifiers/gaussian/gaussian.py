@@ -16,19 +16,24 @@ class Gaussian(object):
 
   def __call__(self, x):
     y = []
-    for c in self.classes:
+    for c in range(len(self.classes)):
       y.append(self._discriminant_func(x, c).view(1, -1))
     y = torch.cat(y, dim = 0)
-    return y.argmax(dim = 0)
+    y = y.argmax(dim = 0)
+    return y
     
 
-class Parsen(Gaussian):
+class Parzen(Gaussian):
   def __init__(self, x, y, h):
-    super(Parsen, self).__init__(x, y)
+    super(Parzen, self).__init__(x, y)
     self.h = h
 
   def _func(self, x):
-    return (-(x * x).sum(dim = 0) / 2).exp()
+    ret = torch.zeros(x.size(1), device = x.device)
+    for i in range(x.size(1)):
+      xi = x[:,i]
+      ret[i] = (-xi.dot(xi) / 2).exp()
+    return ret
 
   def _discriminant_func(self, x, y):
     xi = self.x[:,self.y == y]
@@ -36,7 +41,7 @@ class Parsen(Gaussian):
     for i in range(xi.size(1)):
       _x = (x - xi[:,i].view(-1,1)) / self.h
       ret += self._func(_x)
-    return ret * xi.size(1) / self.y.numel()
+    return ret / xi.size(1)
     
      
 
@@ -49,7 +54,7 @@ class QDF(Gaussian):
     self._calculate_sigma_and_mean()
 
   def _calculate_sigma_and_mean(self):
-    for y in self.classes:
+    for y in range(len(self.classes)):
       indices = (self.y == y)
       xi = self.x[:,indices]
       mean = xi.mean(dim = 1).flatten()
@@ -83,7 +88,7 @@ class RDA(QDF):
   def _calculate_sigma_mean(self):
     dim = self.x.size(0)
     sigma = torch.zeros(dim, dim, device = self.x.device)
-    for c in self.classes:
+    for c in range(len(self.classes)):
       xi = self.x[:,self.y == c]
       meani = xi.mean(dim = 1)
       _xi = xi - meani.view(-1,1)
@@ -109,7 +114,7 @@ class MQDF(QDF):
 
   def _calculate_sigma_mean(self):
     dim = self.x.size(0)
-    for c in self.classes:
+    for c in range(len(self.classes)):
       xi = self.x[:,self.y == c]
       meani = xi.mean(dim = 1)
       _xi = xi - meani.view(-1, 1)
@@ -138,7 +143,7 @@ class LDF(Gaussian):
     mean = self.x.mean(dim = 1)
     x = self.x - mean.view(-1, 1)
     sigma = inverse(x.matmul(x.transpose(1, 0)) / self.x.size(1))
-    for c in self.classes:
+    for c in range(len(self.classes)):
       indices = (self.y == c)
       xi = self.x[:,indices]
       meani = xi.mean(dim = 1)

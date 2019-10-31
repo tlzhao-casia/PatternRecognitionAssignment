@@ -13,4 +13,20 @@ def wdbc():
   _y[y == 'M'] = 0
   _y[y == 'B'] = 1
 
-  return np.array(x).transpose(1, 0), np.array(_y)
+  x = x.transpose(1,0)
+
+  mean = x.mean(axis = 1)
+
+  x = x - mean.reshape(-1, 1)
+  var = np.sqrt((x * x).sum(axis = 1) / x.shape[1])
+  x = x / var.reshape(-1, 1)
+
+  sigma = x.dot(x.T) / x.shape[1]
+
+  s, v, d = np.linalg.svd(sigma)
+
+  x = s[0:4, :].dot(x)
+
+  y = np.array(_y)
+
+  return x, y
