@@ -8,7 +8,7 @@ def find_all_files(root, expand = None):
   for d in os.listdir(root):
     d = os.path.join(root, d)
     if os.path.isdir(d):
-      ret += find_all_files(d)
+      ret += find_all_files(d, expand)
     else:
       if expand is None:
         ret.append(d)
@@ -86,18 +86,28 @@ class OLHWDB(object):
     mpfs = find_all_files(root, '.mpf')
     self.root = root
     self.mpfs = mpfs
-    self.x = []
-    self.y = []
-    for mpf in self.mpfs:
-      # print('Parsing mpf file: %s'%(mpf))
-      x, y = parse_mpf_file(mpf)
-      self.x += x
-      self.y += y
-   
+
+    fname_x = os.path.join(root, 'data.npy')
+    fname_y = os.path.join(root, 'label.npy')
+    if os.path.exists(fname_x) and os.path.exists(fname_y):
+      self.x = np.load(fname_x)
+      self.y = np.load(fname_y)
+    else:
+      self.x = []
+      self.y = []
+      for mpf in self.mpfs:
+        # print('Parsing mpf file: %s'%(mpf))
+        x, y = parse_mpf_file(mpf)
+        self.x += x
+        self.y += y
+      self.x = np.array(x).astype('float32')
+      self.y = np.array(y).astype('int32')
+      np.save(fname_x, self.x)
+      np.save(fname_y, self.y) 
+ 
     self.class_to_idx = class_to_idx(self.y)
     self.num_classes = len(self.class_to_idx)
   
-    self.x = np.array(x).astype('float32')
-    self.y = np.array(y).astype('int32')
+
 
     # print('Number of classes: %d'%(self.num_classes))    
