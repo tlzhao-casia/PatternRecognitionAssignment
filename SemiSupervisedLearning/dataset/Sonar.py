@@ -29,4 +29,4 @@ def sonar():
   x = x[indices, :]
   l = l[indices]
 
-  return x, l
+  return x, l, len(labels)

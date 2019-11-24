@@ -35,4 +35,4 @@ def MNIST():
   selected_indices = selected_indices.astype('int')
   np.random.shuffle(selected_indices)
  
-  return images[selected_indices, :], labels[selected_indices]
+  return images[selected_indices, :], labels[selected_indices], 10
