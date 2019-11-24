@@ -100,8 +100,8 @@ class OLHWDB(object):
         x, y = parse_mpf_file(mpf)
         self.x += x
         self.y += y
-      self.x = np.array(x).astype('float32')
-      self.y = np.array(y).astype('int32')
+      self.x = np.array(self.x).astype('float32')
+      self.y = np.array(self.y).astype('int32')
       np.save(fname_x, self.x)
       np.save(fname_y, self.y) 
  

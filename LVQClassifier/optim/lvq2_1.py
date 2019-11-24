@@ -17,7 +17,7 @@ class LVQ2_1(LVQOptimizer):
     label_i = self.label[idx[0]]
     label_j = self.label[idx[1]]
     
-    if label_i != label_j and di / dj > (1 - self.w) / (1 + self.w):
+    if label_i != label_j and di / (dj+1e-5) > (1 - self.w) / (1 + self.w):
       if label_i == label_x:
         mi.sub_(self.lr, mi - x)
         mj.add_(self.lr, mj - x)

@@ -3,7 +3,7 @@ import time
 import torch
 import numpy as np
 
-from .kmeans import kmeans
+from scipy.cluster.vq import kmeans
 
 class LVQ(object):
   def __init__(self, dims, num_classes, k):
@@ -20,7 +20,11 @@ class LVQ(object):
       start = time.time()
       indices = (y == n).astype('uint8')
       xn = x[indices, :]
-      self.prototype[n * self.k:(n + 1) * self.k,:] = kmeans(xn, self.k, iters)
+      idx = [i for i in range(xn.size(0))]
+      np.random.shuffle(idx)
+      xn = xn[idx[:1000]]
+      codebook, _ = kmeans(xn, self.k, iters)
+      self.prototype[n * self.k:(n + 1) * self.k,:].copy_(torch.from_numpy(codebook))
       self.label[n * self.k:(n + 1) * self.k] = n
       end = time.time()
       print('Runing time: %.2f min'%((end - start) / 60))
