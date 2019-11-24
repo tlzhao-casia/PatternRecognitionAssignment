@@ -14,7 +14,7 @@ parser.add_argument('--rate', '-r', default = 0.3, type = float,
 parser.add_argument('--graph', '-g', default = 'grf', type = str,
                     help = 'The semi-supervised algorithm to run. Can be '
                            'one of [grf, llgc]. Default (grf)')
-parser.add_argument('--sigma', '-s', default = 0.1, type = float,
+parser.add_argument('--sigma', '-s', default = 1, type = float,
                     help = 'The sigma parameter for calculation of weight matrix')
 parser.add_argument('--alpha', '-a', default = 0.1, type = float,
                     help = 'The alpha parameter for llgc algorithm')
