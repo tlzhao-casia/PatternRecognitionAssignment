@@ -17,7 +17,7 @@ def grf(x, y, num_classes, sigma):
   wuu = w[nlabeled:,nlabeled:]
   wul = w[nlabeled:,:nlabeled]
   
-  fu = np.linalg.inv(duu - wuu).dot(wul).dot(fl)
+  fu = np.linalg.pinv(duu - wuu).dot(wul).dot(fl)
 
   return fu.argmax(axis = 1).astype('int')
 
@@ -34,7 +34,7 @@ def llgc(x, y, num_classes, sigma, alpha):
   for n in range(nlabeled):
     f[n, y[n]] = 1
 
-  f = np.linalg.inv(np.eye(nsamples) - alpha / (1 + alpha) * w).dot(f)
+  f = np.linalg.pinv(np.eye(nsamples) - alpha / (1 + alpha) * w).dot(f)
 
   return f.argmax(axis = 1)[nlabeled:]
   
