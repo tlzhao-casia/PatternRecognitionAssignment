@@ -18,7 +18,6 @@ python main.py -d MNIST -g grf -s 1 -r 0.3
 ```
 
 Parameters and descriptions are listed as follows:
-
 * **--dataset, -d:** STRING | The evaluated dataset, can be one of {MNIST, sonar, vowel}, default is MNIST.
 * **--graph, -g:** STRING | The evaluated graph-based algorithm, can be one of {grf, llgc}, default is grf.
 * **--rate, -r:** FLOAT | The percentage of labeled data, must be greater than 0 and less than 1, default is 0.3.
