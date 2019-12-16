@@ -2,3 +2,4 @@
 
 * [Parametric & Non-Parametric Classifiers](GenerativeClassifiers)
 * [Semi supervised Learning](SemiSupervisedLearning)
+* [Feature extraction](FeatureExtraction)
