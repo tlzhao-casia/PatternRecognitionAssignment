@@ -35,6 +35,7 @@ python val_uci.py
 After that, the results will be written in `dataset.pca/lda.res`, forexample, the classification accuracy on 
 PCA subspace on iris dataset will be written in `iris.pca.res`. The results are shown as follows:
 ![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_fig.JPG) 
+
 ![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_tbl.JPG)
 
 #### Large dataset
