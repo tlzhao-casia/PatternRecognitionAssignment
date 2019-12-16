@@ -28,4 +28,19 @@ variable dimensionality. For each dataset, I randomly select 20% of all the samp
 80% of all the samples as training set, 
 **note that the test set is also not used to calculate the projection matrices for PCA/LDA. The projection matrices are**
 **calculated on training set and directly applyed on test set.**
- 
+To do that, just simply run the following script:
+```shell
+python val_uci.py
+```
+After that, the results will be written in `dataset.pca/lda.res`, forexample, the classification accuracy on 
+PCA subspace on iris dataset will be written in `iris.pca.res`. The results are shown as follows:
+![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_fig.JPG) 
+![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_tbl.JPG)
+
+#### Large dataset
+To evaluate the classification accuracy for PCA/LDA subspace on OLHWDB1.1 dataset, run the following script:
+```shell
+python val_olhwdb_kmeans.py
+``` 
+The results will be written in 'olhwdb.kmeans.pca/lda.res', which are shown as follows:
+![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_olhwdb.JPG)
