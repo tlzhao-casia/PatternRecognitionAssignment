@@ -36,7 +36,6 @@ After that, the results will be written in `dataset.pca/lda.res`, forexample, th
 PCA subspace on iris dataset will be written in `iris.pca.res`. The results are shown as follows:
 ![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_fig.JPG) 
 
-![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/cls_acc_uci_tbl.JPG)
 
 #### Large dataset
 To evaluate the classification accuracy for PCA/LDA subspace on OLHWDB1.1 dataset, run the following script:
