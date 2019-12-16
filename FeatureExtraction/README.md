@@ -22,3 +22,10 @@ of iris dataset will be written in `iris_ori.feature` The results are shown as f
 ![](https://github.com/tlzhao-casia/PatternRecognitionAssignment/blob/master/FeatureExtraction/jpgs/feature_visualization.JPG) 
 
 ### Feature extraction for classification
+#### Small datasets
+For iris, wine and vowel dataset, I compare the classification accuracy with LDF, QDF and 1-NN for PCA/LDA subspace of 
+variable dimensionality. For each dataset, I randomly select 20% of all the samples as test set, and the remaining 
+80% of all the samples as training set, 
+**note that the test set is also not used to calculate the projection matrices for PCA/LDA. The projection matrices are**
+**calculated on training set and directly applyed on test set.**
+ 
