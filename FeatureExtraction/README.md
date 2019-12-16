@@ -18,7 +18,7 @@ To do that, just simply run the following script:
 python extract_first_two_dims.py
 ```
 After that, the results will be written in `dataset_ori/pca/lda.feature`, for example, the PCA features 
-of iris dataset will be written in iris_ori.feature The results are shown as follows:
+of iris dataset will be written in `iris_ori.feature` The results are shown as follows:
 ![](jpgs/feature_visualization.jpg) 
 
 ### Feature extraction for classification
